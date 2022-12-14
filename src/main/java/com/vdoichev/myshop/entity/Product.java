@@ -14,4 +14,13 @@ public class Product {
     private String name;
     @Column(length = 1000, nullable = false)
     private String description;
+
+    public Product() {
+    }
+
+    public Product(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 }
