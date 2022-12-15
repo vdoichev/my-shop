@@ -11,6 +11,6 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> findAllByOrderByName();
 
-    @Query(nativeQuery=true, value="SELECT * FROM product WHERE name regexp ?1")
-    List<Product> findProductsByNameRegex(String nameFilter);
+    @Query(nativeQuery=true, value="SELECT * FROM product WHERE name NOT regexp ?1")
+    List<Product> myFindProductsByNameRegex(String nameFilter);
 }

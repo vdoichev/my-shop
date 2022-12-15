@@ -23,7 +23,7 @@ public class ProductService {
 
     public List<Product> getProductsByNameFilter(String nameFilter){
 
-        List<Product> products = productRepository.findProductsByNameRegex(nameFilter);
+        List<Product> products = productRepository.myFindProductsByNameRegex(nameFilter);
         LOG.info("getProductsByNameFilter: {}, result: {}", nameFilter, products);
         return products;
     }

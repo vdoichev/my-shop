@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/shop")
+@RequestMapping("api/shop/")
 @CrossOrigin
 public class ProductController {
     @Autowired
@@ -23,23 +23,20 @@ public class ProductController {
     @Autowired
     private ResponseErrorValidation responseErrorValidation;
 
-    @GetMapping("product/")
-    public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        List<ProductDTO> productDTOList = productService.getAllProducts()
-                .stream()
-                .map(productFacade::productToProductDto)
-                .collect(Collectors.toList());
-
-        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
-    }
-
-    @GetMapping("product/{nameFilter}")
-    public ResponseEntity<List<ProductDTO>> getProductsByNameFilter(@PathVariable("nameFilter") String nameFilter) {
-        List<ProductDTO> productDTOList = productService.getProductsByNameFilter(nameFilter)
-                .stream()
-                .map(productFacade::productToProductDto)
-                .collect(Collectors.toList());
-
+    @GetMapping("product")
+    public ResponseEntity<List<ProductDTO>> getProductsByNameFilter(@RequestParam(required = false) String nameFilter) {
+        List<ProductDTO> productDTOList;
+        if (nameFilter == null) {
+            productDTOList = productService.getAllProducts()
+                    .stream()
+                    .map(productFacade::productToProductDto)
+                    .collect(Collectors.toList());
+        }else {
+            productDTOList = productService.getProductsByNameFilter(nameFilter)
+                    .stream()
+                    .map(productFacade::productToProductDto)
+                    .collect(Collectors.toList());
+        }
         return new ResponseEntity<>(productDTOList, HttpStatus.OK);
     }
 
