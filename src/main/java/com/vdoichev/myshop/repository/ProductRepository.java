@@ -8,9 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product,Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByOrderByName();
 
-    @Query(nativeQuery=true, value="SELECT * FROM product WHERE name NOT regexp ?1")
+    //This query for mySql db
+    //@Query(nativeQuery=true, value="SELECT * FROM product WHERE name NOT regexp ?1")
+    @Query(nativeQuery = true, value = "SELECT * FROM product WHERE name !~ ?1")
     List<Product> myFindProductsByNameRegex(String nameFilter);
 }
