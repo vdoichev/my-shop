@@ -21,10 +21,10 @@ public class ProductService {
         return productRepository.findAllByOrderByName();
     }
 
-    public List<Product> getProductsByNameFilter(String nameFilter){
+    public List<Product> getProductsByNameFilter(String regex){
 
-        List<Product> products = productRepository.myFindProductsByNameRegex(nameFilter);
-        LOG.info("getProductsByNameFilter: {}, result: {}", nameFilter, products);
+        List<Product> products = productRepository.myFindProductsByNameRegex(regex);
+        LOG.info("getProductsByNameFilter: {}, result: {}", regex, products);
         return products;
     }
 }
