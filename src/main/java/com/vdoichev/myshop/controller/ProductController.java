@@ -21,20 +21,20 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("product")
-    public ResponseEntity<List<ProductDTO>> getProductsByNameFilter(@RequestParam(required = false) String nameFilter) {
-        List<ProductDTO> productDTOList;
-        if (nameFilter == null) {
-            productDTOList = productService.getAllProducts()
-                    .stream()
-                    .map(productFacade::productToProductDto)
-                    .collect(Collectors.toList());
-        }else {
-            productDTOList = productService.getProductsByNameFilter(nameFilter)
-                    .stream()
-                    .map(productFacade::productToProductDto)
-                    .collect(Collectors.toList());
-        }
+    public ResponseEntity<List<ProductDTO>> getProductsByNameFilter(@RequestParam(required = true) String nameFilter) {
+        List<ProductDTO> productDTOList = productService.getProductsByNameFilter(nameFilter)
+                .stream()
+                .map(productFacade::productToProductDto)
+                .collect(Collectors.toList());
         return new ResponseEntity<>(productDTOList, HttpStatus.OK);
     }
 
+    @GetMapping("product/all")
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> productDTOList = productService.getAllProducts()
+                .stream()
+                .map(productFacade::productToProductDto)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(productDTOList, HttpStatus.OK);
+    }
 }
