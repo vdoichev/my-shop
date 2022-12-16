@@ -11,6 +11,4 @@ public interface ProductRepository extends JpaRepository<Product, Long>,
         ProductRepositoryCustom {
 
     List<Product> findAllByOrderByName();
-
-    List<Product> myFindProductsByNameRegex(String nameFilter);
 }
